@@ -1,0 +1,86 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  height: 100vh;
+  color: #7AB0DA;
+  background-color: #1C1C1C;
+  user-select: none; /* Prevent text selection while dragging */
+  touch-action: none; /* Prevent pull-down-to-refresh on mobile */
+}
+
+canvas {
+  display: block;
+  margin-top: 1rem;
+}
+
+p {
+  margin: 0;
+}
+
+select, button {
+  background-color: #363636;
+  color: #D2D2D2;
+}
+
+.ui-root {
+  overflow-y: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  display: none; /* Start hidden */
+}
+
+.header {
+  margin-top: 0.75rem;
+  color: #7AD0DA;
+  font-weight: bold;
+  font-variant: small-caps;
+  font-size: 1.25rem;
+  border-bottom: 1px solid #7AD0DA3F;
+}
+
+.spacer {
+  height: 1.25rem;
+}
+
+.toggle {
+  display: flex;
+  justify-content: end;
+}
+
+.row {
+  width: 512px; /* p5 canvas width */
+  margin: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-label {
+  width: 8rem;
+  height: 1.25rem;
+  margin-left: 0.25rem;
+}
+
+.row > :not(.control-label):not(.slider-label):not(button) {
+  flex: 1;
+}
+
+.row > button {
+  width: 25%;
+}
+
+.slider-label {
+  width: 3rem;
+  text-align: right;
+}

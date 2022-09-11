@@ -1,0 +1,13 @@
+{
+  "edgeTypes": [
+    "empty",
+    "pipe"
+  ],
+  "tiles": [
+    { "edges": [0] },
+    { "edges": [0, 1, 1, 1], "forceRotations": 1 },
+    { "edges": [1, 0, 1, 1], "forceRotations": 1 },
+    { "edges": [1, 1, 0, 1], "forceRotations": 1 },
+    { "edges": [1, 1, 1, 0], "forceRotations": 1 }
+  ]
+}

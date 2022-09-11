@@ -1,0 +1,31 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #888;
+  font-size: 20pt;
+}
+
+button {
+	font-size: 12pt;
+}
+
+/* SELECTORS - id > class > tag */
+
+/* 'tag' selector - all elements of this type (paragraphs) */
+p {
+  background-color: #037;
+  padding: 4px;
+}
+
+/* 'class' selector - all elements belonging to this class */
+.bigPara {
+  font-size: 16pt;
+}
+
+/* 'id' selector - the specific element with this id */
+#customPara {
+  background-color: rgb(127, 63, 0);
+}

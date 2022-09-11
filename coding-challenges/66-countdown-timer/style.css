@@ -1,0 +1,14 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+#timer {
+  margin: 20px;
+  color: #FFF000;
+  font-size: xxx-large;
+}

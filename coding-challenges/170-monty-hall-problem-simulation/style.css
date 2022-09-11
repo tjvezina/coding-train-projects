@@ -1,0 +1,125 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body, main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body {
+  padding: 1rem;
+  color: #7AB0DA;
+  background-color: #1C1C1C;
+  user-select: none; /* Prevent text selection while dragging */
+  touch-action: none; /* Prevent pull-down-to-refresh on mobile */
+}
+
+.stage {
+  width: 600px;
+  height: 400px;
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #2ca9bf;
+}
+
+.floor {
+  position: absolute;
+  height: 100px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #02859C;
+}
+
+.instructions {
+  text-align: center;
+  margin: 0;
+  margin-left: 4rem;
+  margin-right: 4rem;
+  font-family: Courier, monospace;
+  font-weight: bold;
+  font-size: 1.25rem;
+  white-space: pre;
+  color: #99CFDA;
+}
+
+.door {
+  position: relative;
+  width: 120px;
+  height: 200px;
+}
+
+.door[open] > .door-panel, .door[open] > .door-knob {
+  background-color: #0000;
+}
+
+.door-panel {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #9d4ca6;
+  border: 0.5rem solid #7a2b81;
+  border-bottom: 0;
+}
+
+.door[selected] > .door-panel {
+  border-color: #DBDD46;
+}
+
+.door[open][selected][win] > .door-panel {
+  border-color: #54D32F;
+}
+
+.door[open][selected][lose] > .door-panel {
+  border-color: #D32F2F;
+}
+
+.door-number {
+  position: absolute;
+  height: 1.5rem;
+  left: 1rem;
+  right: 1rem;
+  bottom: calc(100% + 1rem);
+  text-align: center;
+  font-size: 1.25rem;
+  font-family: monospace;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #9d4ca6;
+  border: 0.25rem solid #7a2b81;
+}
+
+.door-knob {
+  position: absolute;
+  z-index: 3;
+  width: 1.25rem;
+  height: 1.25rem;
+  right: 1.0rem;
+  top: 50%;
+  background-color: #7a2b81;
+  border-radius: 10rem;
+}
+
+.door-contents {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #000;
+  text-align: center;
+  font-size: 5rem;
+  line-height: 200px;
+}

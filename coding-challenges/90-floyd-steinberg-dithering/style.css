@@ -1,0 +1,21 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+canvas {
+  display: block;
+  cursor: none;
+}
+
+p {
+  color: #99C5DD;
+  margin: 0.5rem;
+  font-size: 1.5rem;
+}

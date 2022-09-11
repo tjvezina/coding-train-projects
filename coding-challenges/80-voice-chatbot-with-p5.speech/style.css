@@ -1,0 +1,55 @@
+html, body {
+  margin: 0.75rem;
+  pag: 0;
+  color: white;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+    
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(42, 42, 42);
+  
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#chatbox {
+  width: 36rem;
+  height: 27rem;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  
+  overflow-y: scroll;
+}
+
+#chatbox > * {
+  margin-bottom: 0.5rem;
+}
+
+#input-frame {
+  width: 36rem;
+  height: 2rem;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#input-frame > input {
+  flex-grow: 1;
+}
+
+#input-frame > button {
+  margin-left: 0.25rem;
+}

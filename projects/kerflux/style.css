@@ -1,0 +1,46 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+html {
+}
+body {
+  position: relative;
+  color: #7AB0DA;
+  background-color: #535353;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none; /* Prevent text selection while dragging */
+  touch-action: none; /* Prevent pull-down-to-refresh on mobile */
+}
+canvas {
+  display: block;
+}
+.ui-root {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.container {
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+button {
+  font-weight: bold;
+}
+input[type=checkbox] {
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+label {
+  margin-left: 0.25rem;
+}

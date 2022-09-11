@@ -1,0 +1,58 @@
+{
+  "rows": [{
+      "type": "river",
+      "unitType": "log-medium",
+      "speed": 58,
+      "interval": 3000
+    },{
+      "type": "river",
+      "unitType": "turtle-double",
+      "speed": -72,
+      "interval": 2000
+    },{
+      "type": "river",
+      "unitType": "log-large",
+      "speed": 72,
+      "interval": 4000
+    },{
+      "type": "river",
+      "unitType": "log-small",
+      "speed": 36,
+      "interval": 5000
+    },{
+      "type": "river",
+      "unitType": "turtle-triple",
+      "speed": -58,
+      "interval": 3000
+    },{
+      "type": "grass"
+    },{
+      "type": "road",
+      "unitType": "truck",
+      "speed": -58,
+      "interval": 4000
+    },{
+      "type": "road",
+      "unitType": "car-d",
+      "speed": 58,
+      "interval": 4000
+    },{
+      "type": "road",
+      "unitType": "car-c",
+      "speed": -44,
+      "interval": 5000
+    },{
+      "type": "road",
+      "unitType": "car-b",
+      "speed": 36,
+      "interval": 6000
+    },{
+      "type": "road",
+      "unitType": "car-a",
+      "speed": -36,
+      "interval": 6000
+    },{
+      "type": "grass"
+    }
+  ]
+}

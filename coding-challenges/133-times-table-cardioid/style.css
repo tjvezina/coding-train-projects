@@ -1,0 +1,38 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  position: relative;
+  color: #7AB0DA;
+  background-color: #1C1C1C;
+  user-select: none; /* Prevent text selection while dragging */
+  touch-action: none; /* Prevent pull-down-to-refresh on mobile */
+}
+canvas {
+  display: block;
+}
+.ui-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+.ui-container > * {
+  margin: 0;
+  padding: 0;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+.ui-container > p {
+  margin-right: 0.25rem;
+}
+.ui-container > input {
+  margin-left: 0;
+}

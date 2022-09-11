@@ -1,0 +1,22 @@
+// Chatbot's brain
+
++ set #
+- <set num=<star>><set min=0><set max=100001>
+
++ pick a number
+* <get num> == undefined => Okay! I'm thinking of a number between 1 and 100,000...
+- We already are, keep guessing!
+
++ #
+* <star> < 1      => Hey, I said between 1 and 100,000!
+* <star> > 100000 => Hey, I said between 1 and 100,000!
+* <get min> >= <star> => I said higher than <get min>!
+* <get max> <= <star> => I said lower than <get max>!
+* <get num> >  <star> => <set min=<star>>Higher... [<get min> - <get max>]
+* <get num> <  <star> => <set max=<star>>Lower...  [<get min> - <get max>]
+* <get num> == <star> => <set num=undefined>You got it!
+* <get num> == undefined => I haven't picked a number yet, would you like to play? <get num>
+
++ *
+* <get num> == undefined => Say 'pick a number' if you want to play!
+- Hmm, I don't recognize that number...

@@ -1,0 +1,10 @@
+{
+  "edgeTypes": [
+    "grass",
+    "road"
+  ],
+  "tiles": [
+    { "edges": [0] },
+    { "edges": [0, 1, 1, 1] }
+  ]
+}

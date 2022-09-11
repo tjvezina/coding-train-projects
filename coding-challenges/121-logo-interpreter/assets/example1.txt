@@ -1,0 +1,11 @@
+pu fd 120 rt 120 pd
+repeat 6 [
+  repeat 20 [
+    repeat 180 [
+      fd 1.5 rt 2
+    ]
+    rt 18
+  ]
+  pu fd 120 rt 60 pd
+]
+pu lt 120 bk 120 pd
