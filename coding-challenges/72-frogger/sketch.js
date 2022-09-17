@@ -15,8 +15,8 @@ let playerImage
 let gameWon = false
 
 function preload() {
-  level1Data = loadJSON('data/level1.json')
-  playerImage = loadImage('assets/frog.png')
+  level1Data = loadJSON('./assets/level1.json')
+  playerImage = loadImage('./assets/frog.png')
 }
 
 function setup() {

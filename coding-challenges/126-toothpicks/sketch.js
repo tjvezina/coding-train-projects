@@ -68,3 +68,9 @@ function keyPressed() {
     step();
   }
 }
+
+function mouseClicked() {
+  if (mouseButton === LEFT) {
+    step();
+  }
+}

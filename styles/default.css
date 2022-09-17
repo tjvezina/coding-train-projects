@@ -1,0 +1,26 @@
+body, main {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #1C1C1C;
+  color: #7AB0DA;
+  font-family: sans-serif;
+}
+
+canvas {
+  user-select: none;
+}
+
+p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

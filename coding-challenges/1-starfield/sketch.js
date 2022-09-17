@@ -2,11 +2,11 @@ let stars = [];
 let depth = 400;
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight - 4);
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight - 4);
+  createCanvas(windowWidth, windowHeight);
   
   let count = 500 * pow((windowWidth / 400), 2);
   for (let i = 0; i < count; ++i) {

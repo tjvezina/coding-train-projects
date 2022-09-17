@@ -10,6 +10,7 @@ let lSystem;
 
 function setup() {
   createCanvas(400, 400);
+  createP("Click to advance");
   
   lSystem = new LSystem("F",
   [
@@ -25,7 +26,9 @@ function draw() {
 }
 
 function mousePressed() {
-  lSystem.iterate();
+  if (lSystem.depth < 4) {
+    lSystem.iterate();
+  }
 }
 
 function turtle() {

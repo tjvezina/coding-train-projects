@@ -1,7 +1,3 @@
-/*
-  Expansion on coding challenge 92, using TensorFlow instead of a custom neural network
-*/
-
 const trainingInputs = tf.tensor2d([
   [0, 0],
   [1, 0],
@@ -23,7 +19,10 @@ let inputs;
 
 function setup() {
   createCanvas(400, 400);
-  
+
+  createP('A Tensorflow neural network is trained with an XOR algorithm.');
+  createP('We then ask it to predict the output for continuous values from [0, 0] to [1, 1] - results may vary each run!');
+
   img = createImage(64, 64);
   
   model = tf.sequential();

@@ -1,18 +1,18 @@
-function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
-}
-
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  
+  camera(3, 0, 6);
+  perspective(PI/3, width/height, 0.1, 1000);
+}  
+
 function draw() {
   background(0, 0, 30/255*100);
-  
-  camera(3, -((mouseY || height/2) - height/2)/height*6, 6);
-  perspective(PI/3, width/height, 0.1, 1000);
-  
-  rotateY(-millis()/1000*TWO_PI / 6);
+
+  orbitControl(1, 1, 0);
   
   colorMode(HSB);
   

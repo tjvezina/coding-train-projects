@@ -8,7 +8,7 @@ let imgDither;
 let zoomGraphics
 
 function preload() {
-  imgOriginal = loadImage('assets/raccoon.png');
+  imgOriginal = loadImage('./assets/raccoon.png');
 }
 
 function setup() {

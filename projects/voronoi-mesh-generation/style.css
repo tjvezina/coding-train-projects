@@ -1,19 +1,4 @@
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  padding: 1rem;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #222;
-}
-
 canvas {
-  display: block;
   margin: 1rem;
 }
 

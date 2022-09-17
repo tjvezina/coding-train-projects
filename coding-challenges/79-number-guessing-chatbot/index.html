@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <script type="text/javascript" src="https://unpkg.com/rivescript@latest/dist/rivescript.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Number-Guessing Chatbot | Coding Challenge #79</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-
+    <link rel="icon" href="../../p5js.ico" />
+    <link rel="stylesheet" type="text/css" href="../../styles/default.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="../../libs/p5.js/1.4.2/p5.min.js"></script>
+    <script src="../../libs/p5.sound/1.0.1/p5.sound.min.js"></script>
+    <script src="../../libs/rivescript/2.2.0/rivescript.min.js"></script>
+    <script src="../../libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./sketch.js"></script>
   </head>
+
   <body>
-    <script src="sketch.js"></script>
-    
-    <h1>Chatbot</h1>
-    
+    <h2>Number-Guessing Chatbot</h2>
     <div id="chatbox" class="box"></div>
     <div id="input-frame" class="box">
       <input id="user-input" />
       <button id="send-button">Send</button>
     </div>
-    
   </body>
 </html>

@@ -6,7 +6,7 @@ let vehicles = [];
 let mousePos;
 
 function preload() {
-  font = loadFont('CODE.otf');
+  font = loadFont('./assets/CODE.otf');
 }
 
 function setup() {

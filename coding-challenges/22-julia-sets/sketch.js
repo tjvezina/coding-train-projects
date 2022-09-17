@@ -9,8 +9,8 @@ let scale;
 let offset;
 
 function setup() {
-  pixelDensity(1);
   createCanvas(400, 400);
+  pixelDensity(1);
   colorMode(HSB, 100);
   
   resetView();

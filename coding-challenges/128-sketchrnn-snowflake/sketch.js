@@ -13,7 +13,7 @@ function setup() {
   background(0);
   
   pen = new Pen();
-  model = ml5.SketchRNN('snowflake', onModelLoaded);
+  model = ml5.sketchRNN('snowflake', onModelLoaded);
 }
 
 function onModelLoaded(error) {
@@ -38,8 +38,9 @@ function onGeneratePath(error, path) {
   nextPath = path;
 }
 
-function draw() {  
+function draw() {
   if (!initialized) {
+    background(0);
     noStroke();
     fill(127);
     textAlign(CENTER, CENTER);
@@ -48,7 +49,7 @@ function draw() {
     return;
   }
   
-  translate(width/2, height/2);
+  translate(width/2 - 64, height/2 - 128);
   scale(min(width, height) / 800);
   
   if (nextPath !== undefined) {

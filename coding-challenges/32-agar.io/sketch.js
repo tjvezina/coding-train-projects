@@ -3,29 +3,29 @@
 const WORLD_SIZE = 1000;
 const TILE_SIZE = 100;
 
-let playerBlob;
-let blobs = [];
+let playerBall;
+let balls = [];
 
 function setup() {
   createCanvas(600, 600);
-  playerBlob = new PlayerBlob(WORLD_SIZE / 2, WORLD_SIZE / 2, 64);
+  playerBall = new PlayerBall(WORLD_SIZE / 2, WORLD_SIZE / 2, 64);
   
   for (let i = 0; i < 10; ++i) {
-    blobs[i] = new Blob(random(width), random(height), 16);
+    balls[i] = new Ball(random(width), random(height), 16);
   }
 }
 
 function draw() {
   drawWorld();
   
-  playerBlob.update();
-  playerBlob.draw();
+  playerBall.update();
+  playerBall.draw();
   
-  blobs.forEach(b => b.draw());
+  balls.forEach(b => b.draw());
 }
 
 function drawWorld() {
-  translate(width/2 - playerBlob.pos.x, height/2 - playerBlob.pos.y);
+  translate(width/2 - playerBall.pos.x, height/2 - playerBall.pos.y);
   noStroke();
   
   // Outer walls

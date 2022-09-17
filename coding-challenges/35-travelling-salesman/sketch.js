@@ -1,66 +1,46 @@
-const NODE_COUNT_MIN = 3;
-const NODE_COUNT_MAX = 20;
+const FPS = 45;
 
-let g; // Grid for displaying our nodes
-
-let div;
 let nodeSlider;
-let nodeLabel;
 
-function windowResized() {
-  handleResize();
-}
+let frameRateText;
+let remainingTimeText;
+let progressText;
+let pathCountText;
 
 function setup() {
-  let canvas = createCanvas(0, 0);
-  canvas.style("z-index", "-1");
-  g = createGraphics(400, 400);
+  createCanvas(400, 400);
+  frameRate(FPS);
 
-  div = createElement("div");
+  const headerDiv = createDiv();
+  select('body').elt.prepend(headerDiv.elt);
 
-  let title = createElement("h2", "Travelling Salesman Problem");
-  title.parent(div);
-  title.position(0, 0);
-  title.style("color", "#CCC");
+  createElement('h2', "Travelling Salesman Problem").parent(headerDiv);
+  createElement('h3', "Brute-forcing the shortest path between nodes").parent(headerDiv);
 
-  nodeSlider = createSlider(NODE_COUNT_MIN, NODE_COUNT_MAX, 10);
-  nodeSlider.parent(div);
-  nodeSlider.size(g.width, AUTO);
-  nodeSlider.position(0, 475);
+  UIElement.setRowWidth(`${width}px`);
+  UIElement.setLabelWidth('5rem');
 
-  nodeLabel = createP(nodeSlider.value());
-  nodeLabel.parent(div);
-  nodeLabel.size(20, AUTO);
-  nodeLabel.style("font-size", "16px").style("color", "#CCC").style("text-align", "center");
-
-  let nodeSliderInput = function() {
-    let value = nodeSlider.value();
-    nodeLabel.html(value);
-    nodeLabel.position((g.width - 12) * ((value - NODE_COUNT_MIN) / (NODE_COUNT_MAX - NODE_COUNT_MIN)) - 2, 460);
-  };
-
+  nodeSlider = new Slider('Nodes', 3, 20, 10);
   nodeSlider.changed(run);
-  nodeSlider.input(nodeSliderInput);
-  nodeSliderInput();
 
-  handleResize();
+  const container = createDiv().class('container').style(`width: ${width}px;`);
+
+  remainingTimeText = createLabelRow('Time remaining:');
+  progressText = createLabelRow('Progress:');
+  frameRateText = createLabelRow('Paths/frame:');
+  pathCountText = createLabelRow('Paths checked:');
 
   run();
-}
 
-function handleResize() {
-  resizeCanvas(windowWidth, windowHeight - 4);
-
-  div.size(g.width, windowHeight);
-  div.position((width - g.width) / 2, 0);
+  function createLabelRow(labelText) {
+    const row = createDiv().class('row').parent(container);
+    createP(labelText).class('left bright').parent(row);
+    return createP('').class('right').parent(row);
+  }
 }
 
 function mousePressed() {
-  if (!isRunning &&
-    mouseX > (width - g.width) / 2 &&
-    mouseX < (width + g.width) / 2 &&
-    mouseY > 60 &&
-    mouseY < 60 + g.height) {
+  if (!isRunning && mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     run();
   }
 }
@@ -70,32 +50,28 @@ function mousePressed() {
 
 function draw() {
   update();
+  updateSecondsRemaining();
 
-  background(42);
-  drawHeader();
+  clear();
   drawGrid();
   drawDetails();
-}
-
-function drawHeader() {
-  // TODO
 }
 
 function drawGrid() {
   const GRID_COUNT = 10;
 
-  g.background(0);
+  background(0);
 
-  g.push();
-  g.strokeWeight(1);
-  g.stroke(42);
+  push();
+  strokeWeight(1);
+  stroke(42);
   for (let i = 1; i < GRID_COUNT; ++i) {
-    let x = g.width / GRID_COUNT * i;
-    g.line(x, 0, x, g.height);
-    let y = g.height / GRID_COUNT * i;
-    g.line(0, y, g.width, y);
+    let x = width / GRID_COUNT * i;
+    line(x, 0, x, height);
+    let y = height / GRID_COUNT * i;
+    line(0, y, width, y);
   }
-  g.pop();
+  pop();
 
   if (nodes.length) {
     drawPath(iBest, color(20, 180, 50), 4);
@@ -105,119 +81,93 @@ function drawGrid() {
       nodes[i].draw();
     }
   }
-
-  image(g, (width - g.width) / 2, 60);
 }
 
 function drawPath(iArray, color, weight) {
-  g.stroke(color);
-  g.strokeWeight(weight);
+  stroke(color);
+  strokeWeight(weight);
 
   let prevNode = nodes[iArray[0]];
   for (let i = 1; i < iArray.length; ++i) {
     let nextNode = nodes[iArray[i]];
-    g.line(prevNode.x, prevNode.y, nextNode.x, nextNode.y);
+    line(prevNode.x, prevNode.y, nextNode.x, nextNode.y);
     prevNode = nextNode;
   }
 }
 
 function drawDetails() {
-  push();
-  strokeWeight(1.5);
-  stroke(255);
-  for (let i = NODE_COUNT_MIN; i <= NODE_COUNT_MAX; ++i) {
-    let x = (g.width - 12) * ((i - NODE_COUNT_MIN) / (NODE_COUNT_MAX - NODE_COUNT_MIN)) + 8;
-    x += (width - g.width) / 2;
-    line(x, nodeSlider.position().y + 24, x, nodeSlider.position().y + 40);
-  }
-  pop();
-
   if (permutationCounter == undefined) {
     return;
   }
 
-  let percent = permutationCounter.multiply(100000).divide(permutationTotal).toJSNumber() / 1000;
+  let percent = Number(permutationCounter * 100000n / permutationTotal) / 1000;
   percent = formatPercent(percent);
   let counter = formatBigInt(permutationCounter);
   let total = formatBigInt(permutationTotal);
 
-  push();
-  textSize(20);
-  textAlign(LEFT);
-  fill(255);
-  text(formatBigInt(checksPerFrame) + " / frame", (width - g.width) / 2, 570);
-  fill(191);
-  text(calculateTimeRemaining(), (width - g.width) / 2, 600);
-  textAlign(RIGHT);
-  fill(255);
-  text(percent + "%", (width + g.width) / 2, 570);
-  fill(127);
-  text(counter, (width + g.width) / 2, 600);
-  text("/ " + total, (width + g.width) / 2, 620);
-  pop();
+  frameRateText.html(formatBigInt(pathsPerFrame));
+  progressText.html(percent + '%');
+  remainingTimeText.html(secondsRemaining);
+  pathCountText.html(`${counter}\n/ ${total}`);
 }
 
-function calculateTimeRemaining() {
+function updateSecondsRemaining() {
   if (!isRunning || !frameRate()) {
+    secondsRemaining = '00:00';
     return;
   }
 
-  if (++avgCounter >= 60) {
-    avgCounter = 0;
+  pathsPerFrameHistory.push(pathsPerFrame);
 
-    let frames = permutationTotal.subtract(permutationCounter).divide(checksPerFrame);
-    let totalSec = round(frames / frameRate());
-
-    avgTimeLeft.push(totalSec);
+  if (pathsPerFrameHistory.length < FPS) {
+    secondsRemaining = "Calculating...";
+    return;
   }
 
-  let avg;
+  const now = millis();
+  if (now - lastTimeUpdate > 200) {
+    lastTimeUpdate = now;
+  } else {
+    return;
+  }
+
+  const avgPathsPerFrame = pathsPerFrameHistory.reduce((a, b) => a + b) / pathsPerFrameHistory.length;
+  const framesLeft = Number(permutationTotal - permutationCounter) / avgPathsPerFrame;
+  const totalSec = round(framesLeft / FPS);
+
   let divisor = 1;
-
-  if (avgTimeLeft.length > 10) {
-    avgReady = true;
-    avgTimeLeft.splice(0, avgTimeLeft.length - 10);
-  }
-  
-  if (!avgReady) {
-    return "Calculating...";
-  }
-
-  avg = avgTimeLeft[0];
-  for (let i = 1; i < avgTimeLeft.length; ++i) {
-    avg += avgTimeLeft[i];
-  }
-  avg = avg / avgTimeLeft.length;
 
   let seconds = nextTimeInc(60);
   let minutes = nextTimeInc(60);
 
   let str = formatTimeValue(minutes) + ":" + formatTimeValue(seconds);
 
-  if (avg >= divisor) {
+  if (totalSec >= divisor) {
     let hours = nextTimeInc(24);
     str = formatTimeValue(hours) + ":" + str;
 
-    if (avg >= divisor) {
+    if (totalSec >= divisor) {
       let days = nextTimeInc(30);
       str = formatTimeValue(days) + "d " + str;
 
-      if (avg >= divisor) {
+      if (totalSec >= divisor) {
         let months = nextTimeInc(12);
         str = formatTimeValue(months) + "m " + str;
 
-        if (avg >= divisor) {
-          let years = floor(avg / divisor);
+        if (totalSec >= divisor) {
+          let years = floor(totalSec / divisor);
           str = formatBigInt(years) + "y " + str;
         }
       }
     }
   }
 
-  return str;
+  pathsPerFrameHistory.shift();
+
+  secondsRemaining = str;
 
   function nextTimeInc(inc) {
-    let result = floor(avg / divisor) % inc;
+    let result = floor(totalSec / divisor) % inc;
     divisor *= inc;
     return result;
   }
@@ -263,18 +213,18 @@ function formatPercent(percent, decimals = 3) {
 function Node(id, pos) {
   this.id = id;
   this.pos = pos;
-  this.x = pos.x * g.width;
-  this.y = pos.y * g.height;
+  this.x = pos.x * width;
+  this.y = pos.y * height;
 }
 
 Node.prototype.draw = function() {
-  g.fill(color(63, 0, 127));
-  g.stroke(color(127, 31, 127));
-  g.ellipse(this.x, this.y, 20);
-  g.textAlign(CENTER);
-  g.textSize(14);
-  g.fill(200);
-  g.text(this.id, this.x, this.y + 5);
+  fill(color(63, 0, 127));
+  stroke(color(127, 31, 127));
+  ellipse(this.x, this.y, 20);
+  textAlign(CENTER);
+  textSize(14);
+  fill(200);
+  text(this.id, this.x, this.y + 5);
 }
 
 // ****************************************
@@ -283,9 +233,7 @@ Node.prototype.draw = function() {
 const FAIL_LIMIT = 10000;
 const MIN_DIST = 0.1;
 
-let checksPerFrame;
-let checkVelocity;
-let checkAccel;
+let pathsPerFrame;
 
 let nodes = [];
 let iList = [];
@@ -297,9 +245,9 @@ let permutationTotal;
 let permutationCounter;
 let isRunning = false;
 
-let avgTimeLeft = [];
-let avgCounter;
-let avgReady;
+let pathsPerFrameHistory;
+let secondsRemaining;
+let lastTimeUpdate;
 
 function run() {
   nodes = [];
@@ -307,15 +255,13 @@ function run() {
   iBest = [];
   bestDist = 1e9;
   isRunning = true;
-  checksPerFrame = 100;
-  checkVelocity = 0;
-  checkAccel = 0;
-  avgTimeLeft = [];
-  avgCounter = 1e9;
-  avgReady = false;
+  pathsPerFrame = 1;
+  pathsPerFrameHistory = [];
+  secondsRemaining = null;
+  lastTimeUpdate = 0;
 
   let failCount = 0;
-  while (nodes.length < nodeSlider.value()) {
+  while (nodes.length < nodeSlider.value) {
     let pos = createVector(random(0.1, 0.9), random(0.1, 0.9));
     let tooClose = false;
     for (let i = 0; i < nodes.length; ++i) {
@@ -343,10 +289,10 @@ function run() {
   }
 
   // Use bigInt to calculate the total number of permutations
-  permutationCounter = bigInt.zero;
-  permutationTotal = bigInt.one;
+  permutationCounter = 0n;
+  permutationTotal = 1n;
   for (let i = 2; i <= nodes.length; ++i) {
-    permutationTotal = permutationTotal.multiply(i);
+    permutationTotal *= BigInt(i);
   }
 }
 
@@ -355,31 +301,19 @@ function update() {
     return;
   }
 
-  if (frameRate() > 55) {
-    ++checkAccel;
-    if (checkAccel < 0) {
-      checkAccel = 0;
-      checkVelocity = 0;
-    }
-  } else {
-    --checkAccel;
-    if (checkAccel > 0) {
-      checkAccel = 0;
-      checkVelocity = 0;
-    }
-  }
+  pathsPerFrame = 0;
 
-  checkVelocity += checkAccel;
-  checksPerFrame += checkVelocity;
+  const start = millis();
+  while (millis() - start < 1000 / FPS) {
+    ++pathsPerFrame;
 
-  for (let i = 0; i < checksPerFrame; ++i) {
     let dist = calculateDistance();
     if (dist < bestDist) {
       bestDist = dist;
-      iBest = iList.slice();
+      iBest = [...iList];
     }
 
-    if (nextPermutation()) {} else {
+    if (!nextPermutation()) {
       isRunning = false;
       iList = [];
       break;
@@ -388,7 +322,7 @@ function update() {
 }
 
 function nextPermutation() {
-  permutationCounter = permutationCounter.next();
+  ++permutationCounter;
 
   // STEP 1: Find the greatest x such that p[x] < p[x+1]
   let x;

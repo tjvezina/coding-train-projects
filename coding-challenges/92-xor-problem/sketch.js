@@ -1,8 +1,3 @@
-/**
-  A neural network, with 2 inputs, 4 hidden nodes, and one output, is trained with an XOR algorithm.
-  We then ask it to predict the output for continuous values from [0, 0] to [1, 1] - results may vary each run!
-**/
-
 const trainingData = [
   {
     inputs: [0, 0],
@@ -28,6 +23,9 @@ let nn;
 
 function setup() {
   createCanvas(400, 400);
+
+  createP('A neural network, with 2 inputs, 4 hidden nodes, and one output, is trained with an XOR algorithm.');
+  createP('We then ask it to predict the output for continuous values from [0, 0] to [1, 1] - results may vary each run!');
   
   nn = new NeuralNetwork(2, 4, 1);
 }

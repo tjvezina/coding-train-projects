@@ -141,17 +141,19 @@ function draw() {
     return;
   }
 
+  const iCurrent = (showNextDigits ? iDigit + 1 : iDigit)
+
   noStroke();
   textAlign(CENTER, CENTER);
   textSize(DIGIT_SIZE);
-  for (let i = max(-2, iDigit - DIGIT_RANGE - 1); i <= iDigit + DIGIT_RANGE - 1; i++) {
-    if (i >= iDigit && (!showNextDigits && !gameIsOver)) {
+  for (let i = max(-2, iCurrent - DIGIT_RANGE - 1); i <= iCurrent + DIGIT_RANGE - 1; i++) {
+    if (i >= iCurrent && (!showNextDigits && !gameIsOver)) {
       break;
     }
     
-    const x = map(i, iDigit-DIGIT_RANGE-1, iDigit+DIGIT_RANGE-1, 0, width);
+    const x = map(i, iCurrent-DIGIT_RANGE-1, iCurrent+DIGIT_RANGE-1, 0, width);
     const char = (i === -2 ? '3' : (i === -1 ? '.' : digits[i]));
-    fill(i === iDigit-1 || (iDigit === 0 && i < 0) ? '#1177179E' : (i < iDigit ? '#11771735' : '#5D647F3F'));
+    fill(i === iCurrent-1 || (iCurrent === 0 && i < 0) ? '#1177179E' : (i < iCurrent ? '#11771735' : '#5D647F3F'));
     text(char, x, height/2);
   }
   

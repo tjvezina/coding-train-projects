@@ -17,7 +17,7 @@ function windowResized() {
 }
 
 function draw() {
-  clear();
+  background('#0a111f');
   
   const aspect = width/height;
   camera(100, -100, 100);

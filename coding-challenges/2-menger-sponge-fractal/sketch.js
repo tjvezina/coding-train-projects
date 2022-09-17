@@ -1,20 +1,12 @@
-/* NOTES
-Recursive fractal cube with n depth:
-*/
-
-function windowResized() {
-  reset();
-}
+let lastPause = 0;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight - 4, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   noLoop();
   reset();
 }
 
 function reset() {
-	resizeCanvas(windowWidth, windowHeight - 4);
-  
   camera(0, -1, 2, 0, 0.15, 0, 0, 1, 0);
   perspective(PI/4, width/height, 0.1, 100);
 
@@ -26,10 +18,10 @@ function reset() {
 
   ambientMaterial(50, 180, 80);
   noStroke();
-  drawSpongeFractal(0, 0, 0, 4);  
+  drawSpongeFractal(0, 0, 0, 4);
 }
 
-function drawSpongeFractal(posX, posY, posZ, levels, depth = 1) {
+async function drawSpongeFractal(posX, posY, posZ, levels, depth = 1) {
   let step = 1 / pow(3, depth);
   for (let z = -1; z <= 1; ++z) {
     for (let y = -1; y <= 1; ++y) {
@@ -38,12 +30,17 @@ function drawSpongeFractal(posX, posY, posZ, levels, depth = 1) {
           continue;
         }
         
-        if (depth == levels) {
+        if (depth === levels) {
           push();
-          translate(posX + step * x, posY + step * y, posZ + step * z);
-          box(step, step, step);
+          {
+            translate(posX + step * x, posY + step * y, posZ + step * z);
+            box(step, step, step);
+          }
           pop();
         } else {
+          if (depth === levels - 1) {
+            await new Promise(resolve => setTimeout(resolve, 0));
+          }
           drawSpongeFractal(posX + step * x, posY + step * y, posZ + step * z, levels, depth + 1);
         }
       }

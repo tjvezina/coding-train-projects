@@ -1,0 +1,68 @@
+.UIControls {
+  --row-width: 32rem;
+  --label-width: 8rem;
+  --bg-color: #363636;
+  --fg-color: #D2D2D2;
+
+  overflow-y: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.UIControls__row {
+  width: var(--row-width);
+  margin: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.UIControls__header {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  width: 100%;
+  color: #7AD0DA;
+  font-weight: bold;
+  font-variant: small-caps;
+  font-size: 1.25rem;
+  border-bottom: 1px solid #7AD0DA3F;
+}
+
+.UIControls__spacer {
+  height: 1.25rem;
+}
+
+.UIControls__button {
+  width: 25%;
+  background-color: var(--bg-color);
+  color: var(--fg-color);
+}
+
+.UIControls__label {
+  width: var(--label-width);
+  height: 1.25rem;
+  margin: 0 0 0 0.25rem;
+}  
+
+.UIControls__toggle {
+  flex: 1;
+  display: flex;
+  justify-content: end;
+}
+
+.UIControls__select {
+  flex: 1;
+  background-color: var(--bg-color);
+  color: var(--fg-color);
+}
+
+.UIControls__slider {
+  flex: 1;
+}
+
+.UIControls__slider-label {
+  width: 3rem;
+  text-align: right;
+  margin: 0;
+}

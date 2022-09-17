@@ -1,19 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Wikipedia API Demo | Coding Challenge #75</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-
+    <link rel="icon" href="../../p5js.ico" />
+    <link rel="stylesheet" type="text/css" href="../../styles/default.css">
+    <script src="../../libs/p5.js/1.4.2/p5.min.js"></script>
+    <script src="../../libs/p5.sound/1.0.1/p5.sound.min.js"></script>
+    <script src="./sketch.js"></script>
   </head>
   <body>
-    <script src="sketch.js"></script>
-    
-    <h2>Wikipedia Coding Challenge Thing</h2>
-    
+    <h2>Wikipedia API Demo</h2>
+    <p>Enter a search term to see a word cloud for a random matching Wikipedia page.</p>
     <p>
-      word: <input id="userInput" value="rainbow"/>
+      Search: <input id="userInput" value="rainbow"/>
+      <button id="generateButton">Generate</button>
     </p>
   </body>
+  <style>
+    body {
+      width: auto;
+      height: auto;
+      margin: 1.5rem;
+      display: block;
+    }
+  </style>
 </html>

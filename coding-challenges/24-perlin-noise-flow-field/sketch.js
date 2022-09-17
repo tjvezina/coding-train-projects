@@ -9,7 +9,7 @@ let particles = [];
 function setup() {
   createCanvas(400, 400);
   
-  fpsText = createP('FPS:').style('color', '#AAA');
+  fpsText = createP('FPS:');
   
   colorMode(HSB, 100);
   

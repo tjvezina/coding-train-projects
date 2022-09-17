@@ -15,15 +15,30 @@ let solved = false;
 function setup() {
   createCanvas(600, 600);
   frameRate(SEARCH_RATE);
+  createP('Click to regenerate');
   
+  restart();
+
+  colW = width / grid.cols;
+  rowH = height / grid.rows;
+}
+
+function restart() {
   grid = new Grid(GRID_SIZE, GRID_SIZE);
   start = grid.grid[0][0]; // Start top-left
   end = grid.grid[grid.cols-1][grid.rows-1]; // Find bottom-right
   
+  openSet.length = 0;
+  closedSet.length = 0;
   openSet.push(start);
-  
-  colW = width / grid.cols;
-  rowH = height / grid.rows;
+
+  solved = false;
+}
+
+function mouseClicked() {
+  if (mouseButton === LEFT && mouseX >= 0 && mouseX < width && mouseY >= 0 && mouseY < height) {
+    restart();
+  }
 }
 
 function draw() {

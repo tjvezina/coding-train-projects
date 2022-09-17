@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>ASCII Video | Coding Challenge #166</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-
+    <link rel="icon" href="../../p5js.ico" />
+    <link rel="stylesheet" type="text/css" href="../../styles/default.css">
+    <link rel="stylesheet" type="text/css" href="./hack-subset.css">
+    <script src="../../libs/p5.js/1.4.2/p5.min.js"></script>
+    <script src="./sketch.js"></script>
   </head>
-  <body>
-    <main>
-    </main>
-    <script src="sketch.js"></script>
-  </body>
+  <style>
+    @font-face {
+      font-family: 'Hack';
+      src: url('./assets/fonts/hack-regular-subset.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    div {
+      font-family: Hack;
+      font-size: 16px;
+      line-height: calc(16px * 0.55); /* Use font aspect ratio to create square 'pixels' */
+      white-space: pre;
+      color: white;
+      background-color: black;
+    }
+  </style>
 </html>
+

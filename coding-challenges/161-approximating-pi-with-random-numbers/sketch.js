@@ -1,6 +1,3 @@
-// The ratio of coprime to non-coprime interger pairs is 6/pi^2 = 0.6079...
-// So by generating random pairs and tracking how many were coprime, we can estimate pi
-
 const MAX_VALUE = 10e8;
 
 let iterPerFrame = 1;
@@ -10,6 +7,9 @@ let coprime = 0;
 function setup() {
   createCanvas(600, 600);
   pixelDensity(1);
+
+  createP('The ratio of coprime to non-coprime integer pairs is 6/PI^2 = 0.06079...');
+  createP('We can approximate Pi by checking whether random integer pairs are coprime.')
 }
 
 function draw() {

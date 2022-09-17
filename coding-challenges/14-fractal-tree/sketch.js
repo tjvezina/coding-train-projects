@@ -8,7 +8,7 @@ function setup() {
   createElement("p", "Start Length").style("color", "#FFF").style("margin-bottom", "0px");
   lengthSlider = createSlider(10, 200, 100);
   createElement("p", "Length Multiplier").style("color", "#FFF").style("margin-bottom", "0px");
-  lengthMultiplierSlider = createSlider(0.01, 1, 0.5, 0.01);
+  lengthMultiplierSlider = createSlider(0.01, 1, 0.7, 0.01);
   createElement("p", "Angle").style("color", "#FFF").style("margin-bottom", "0px");
   angleSlider = createSlider(2, 16, 8, 0.25);
 }

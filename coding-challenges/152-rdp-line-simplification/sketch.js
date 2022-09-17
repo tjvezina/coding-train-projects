@@ -9,6 +9,8 @@ let epsilon;
 function setup() {
   createCanvas(600, 600);
   pixelDensity(1);
+  strokeCap(ROUND);
+  strokeJoin(ROUND);
   
   createP('Epsilon').style('margin-bottom', '0.5rem');
   epsilonSlider = createSlider(0, 1, 0.5, 0.001).style('width', '20rem');

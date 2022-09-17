@@ -8,7 +8,7 @@ let sortRow = 0;
 let sortData = [];
 
 function preload() {
-  sourceImage = loadImage('image.png');
+  sourceImage = loadImage('./assets/image.png');
 }
 
 function setup() {

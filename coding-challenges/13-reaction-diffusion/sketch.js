@@ -14,7 +14,9 @@ let grid = [];
 let next = [];
 
 function setup() {
-  createCanvas(200, 200);
+  createCanvas(200, 200).style('display: none;');
+  setTimeout(() => select('canvas').style('width: 400px; height: 400px; display: block;'), 0);
+
   pixelDensity(1);
   
   colA = createVector(232, 211, 150);
@@ -57,6 +59,8 @@ function draw() {
 }
 
 function mousePressed() {
+  mouseX = round(mouseX);
+  mouseY = round(mouseY);
   if (mouseX >= 0 && mouseX < width && mouseY >= 0 && mouseY < height) {
 		for (let y = mouseY - 10; y <= mouseY + 10; ++y) {
       for (let x = mouseX - 10; x <= mouseX + 10; ++x) {

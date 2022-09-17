@@ -8,7 +8,11 @@ const optimizer = tf.train.adam(0.2);
 
 function setup() {
   createCanvas(600, 600);
-  
+
+  createDiv().style('height: 1rem;');
+  createP('Click to place data points.');
+  createP('The closest approximate equasion will be found via polynomial regression.');
+
   a = tf.variable(tf.scalar(0));
   b = tf.variable(tf.scalar(0));
   c = tf.variable(tf.scalar(1));

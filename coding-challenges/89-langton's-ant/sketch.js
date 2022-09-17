@@ -20,7 +20,7 @@ function setup() {
 
   const addButton = function(name, icon, callback) {
     const button = createButton('')
-    button.class(`icon-button fas fa-fw fa-${icon}`)
+    button.class(`icon-button fas fa-${icon}`)
     button.attribute('title', name)
     button.mouseClicked(callback)
     button.parent(controlRow)

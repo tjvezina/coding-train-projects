@@ -1,7 +1,7 @@
 const MAX_DEPTH = 12
 
 function setup() {
-  createCanvas(600, 400)
+  createCanvas(800, 600)
 
   colorMode(HSB)
   noFill()
@@ -9,6 +9,9 @@ function setup() {
 
 function draw() {
   background(0, 0, 42/255*100)
+
+  mouseX = constrain(mouseX, 0, width);
+  mouseY = constrain(mouseY, 0, height);
 
   drawCircle(width/2, height/2, height * 0.75)
 }

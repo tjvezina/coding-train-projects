@@ -5,13 +5,13 @@ let prevMouse;
 let sun;
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight - 4);
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function setup() {
   drag = createVector(0, 0);
   
-  createCanvas(windowWidth, windowHeight - 4);
+  createCanvas(windowWidth, windowHeight);
   
   sun = new Body(24, 0, null, color(255));
   m = new Body(5, 60, sun, color(89, 57, 12));

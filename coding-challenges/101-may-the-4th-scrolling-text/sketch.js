@@ -4,8 +4,8 @@ let font;
 let posY = 420;
 
 function preload() {
-  loadStrings('assets/innocuous_text.txt', result => words = result.reduce((a, b) => a + b));
-  font = loadFont('assets/fonts/coolvetica rg.otf');
+  loadStrings('./assets/innocuous_text.txt', result => words = result.reduce((a, b) => a + b));
+  font = loadFont('./assets/fonts/coolvetica rg.otf');
 }
 
 function setup() {

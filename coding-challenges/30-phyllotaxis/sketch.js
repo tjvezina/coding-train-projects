@@ -8,17 +8,20 @@ let tSlider;
 let rSlider;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(600, 600);
   angleMode(DEGREES);
   colorMode(HSB, 100); 
   reset();
   
-  speedSlider = new PowerSlider('Speed', 0, 12, 12, 2, reset);
-  cSlider = new Slider('Zoom', 1, 20, 8, 0.01, reset);
-  sizeSlider = new Slider('Size', 0.01, 10, 4, 0.01, reset);
-  angleSlider = new Slider('Angle', 135, 140, 137.5, 0.01, reset);
-  tSlider = new Slider('Theta Strength', 0, 1, 1, 0.01, reset);
-  rSlider = new Slider('Radius Strength', 0, 1, 0, 0.01, reset);
+  UIElement.setRowWidth(`${width}px`);
+  speedSlider = new PowerSlider('Speed', 0, 12, 2);
+  cSlider = new Slider('Zoom', 1, 20, 8, 0.01);
+  sizeSlider = new Slider('Size', 0.01, 10, 4, 0.01);
+  angleSlider = new Slider('Angle', 135, 140, 137.5, 0.01);
+  tSlider = new Slider('Theta Strength', 0, 1, 0.78, 0.01);
+  rSlider = new Slider('Radius Strength', 0, 1, 0, 0.01);
+
+  UIElement.controlList.forEach(control => control.changed(reset));
 }
 
 function reset() {
@@ -29,12 +32,12 @@ function reset() {
 function draw() {
   translate(width / 2, height / 2);
   
-  let c = cSlider.value();
-  let speed = speedSlider.value();
-  let size = sizeSlider.value() * c / 4;
-  let angle = angleSlider.value();
-  let tHue = tSlider.value();
-  let rHue = rSlider.value();
+  let c = cSlider.value;
+  let speed = speedSlider.value;
+  let size = sizeSlider.value * c / 4;
+  let angle = angleSlider.value;
+  let tHue = tSlider.value;
+  let rHue = rSlider.value;
   
   for (let i = 0; i < speed; ++i) {
     let t = n * angle;

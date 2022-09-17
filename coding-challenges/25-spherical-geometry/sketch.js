@@ -49,11 +49,11 @@ function setup() {
 function draw() {
   background(25);
   
-  orbitControl();
+  orbitControl(1, 1, 0);
   
   // LIGHTS
-  ambientLight(50);
-  directionalLight(255, 255, 255, -1, 1, 0);
+  ambientLight(127);
+  // directionalLight(255, 255, 255, -1, 1, 0);
   
   // MATERIALS
   // normalMaterial();

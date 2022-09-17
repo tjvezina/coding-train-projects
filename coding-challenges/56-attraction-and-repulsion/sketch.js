@@ -4,15 +4,28 @@ let particles = [];
 let attractors = [];
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(800, 800);
+
+  createP('Click to create particles');
+  createButton('Restart').mousePressed(restart);
+
+  restart();
+}
+
+function restart() {
   background(0);
-  
+
+  particles.length = 0;
+  attractors.length = 0;
+
   for (let i = 0; i < 3; ++i) {
     attractors.push(createVector(random(-width/4, width/4), random(-height/4, height/4)));
   }
-  
-  for (let i = 0; i < 10; ++i) {
-    particles.push(new Particle(random(-width/2, width/2), random(-height/2, height/2)));
+}
+
+function mouseClicked() {
+  if (mouseButton === LEFT && mouseX >= 0 && mouseX < width && mouseY >= 0 && mouseY < height) {
+    particles.push(new Particle(mouseX - width/2, mouseY - height/2));
   }
 }
 
@@ -38,22 +51,26 @@ class Particle {
     this.pos = createVector(x, y);
     this.vel = p5.Vector.random2D().mult(0.1);
     this.acc = createVector();
+
+    this.prevPos = this.pos.copy();
   }
   
   update(attractors) {
-    this.pos.add(this.vel);
-    this.vel.add(this.acc);
-    this.acc.mult(0);
-    
     for (let i = 0; i < attractors.length; ++i) {
       this.attract(attractors[i]);
     }
+
+    this.prevPos.set(this.pos);
+
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+
+    this.acc.mult(0);
   }
   
   draw() {
-    strokeWeight(2);
-    stroke(255, 16);
-    point(this.pos.x, this.pos.y);
+    stroke(255).strokeWeight(0.5);
+    line(this.prevPos.x, this.prevPos.y, this.pos.x, this.pos.y);
   }
   
   attract(target) {

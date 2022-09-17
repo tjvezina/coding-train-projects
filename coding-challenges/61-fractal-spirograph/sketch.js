@@ -5,6 +5,8 @@ let path = [];
 
 function setup() {
   createCanvas(600, 600);
+  strokeJoin(ROUND);
+  strokeCap(ROUND);
 
   rootCircle = new Circle(140);
 }

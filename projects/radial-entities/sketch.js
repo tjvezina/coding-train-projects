@@ -37,8 +37,6 @@ let spiralAmpSlider;
 let spiralFreqSlider;
 let spiralOffsetSlider;
 
-const controls = [];
-
 const sprites = {};
 
 let t = 0;
@@ -64,8 +62,6 @@ function setup() {
   gl = this._renderer.GL;
   
   createButton('Save GIF').style('margin-top', '1rem').mouseClicked(saveToGif);
-  
-  // new Button('Shuffle', onShuffle);
   
   new Header('General');
   durationSlider = new Slider('Duration', 1, 5, 2, 0.1);
@@ -93,6 +89,12 @@ function setup() {
   spiralAmpSlider = new Slider('Amplitude', 0.01, 0.2, 0.1, 0.01);
   spiralFreqSlider = new Slider('Frequency', -4, 4, 1, 0.1);
   spiralOffsetSlider = new Slider('Arm Spirals', 0, 6, 2);  
+
+  toggleControls();
+}
+
+function toggleControls() {
+  UIElement.uiRoot.style('display', (UIElement.uiRoot.style('display') === 'none' ? 'block' : 'none'));
 }
 
 function draw() {
@@ -237,8 +239,7 @@ function mouseClicked() {
 
 function keyPressed() {
   if (key === 'S') {
-    const uiRoot = select('.ui-root');
-    uiRoot.style('display', (uiRoot.style('display') === 'none' ? 'block' : 'none'))
+    toggleControls();
   }
 }
 
@@ -259,5 +260,5 @@ function saveToGif() {
 }
 
 function onShuffle() {
-  controls.forEach(control => control.randomize());
+  UIElement.controlList.forEach(control => control.randomize());
 }

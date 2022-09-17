@@ -5,20 +5,19 @@ const SIZE = 20;
 let offset = 0;
 
 function setup() {
-  createCanvas(400, 400, WEBGL);
+  createCanvas(600, 400, WEBGL);
 }
 
 function draw() {
-  background(0, 20, 50);
+  background(0, 40, 80);
   rotateX(PI * 0.4);
   translate(-WIDTH * SIZE / 2, -DEPTH * SIZE * 0.75);
   
   ambientMaterial(20, 60, 40);
   ambientLight(63);
-  directionalLight(color(127), -1, 1, -1);
+  directionalLight(color(255), -1, 1, -1);
 
-  // fill(20, 60, 40);
-  stroke(20);
+  stroke(32);
   for (let y = 0; y < DEPTH; ++y) {
     beginShape(TRIANGLE_STRIP);
     for (let x = 0; x < WIDTH + 1; ++x) {

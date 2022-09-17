@@ -20,10 +20,10 @@ let currentSpeed = BUTTON_SPEEDS[0];
 const birdSprites = [];
 
 function preload() {
-  font = loadFont('fonts/flappy.TTF');
+  font = loadFont('./assets/fonts/flappy.TTF');
   
   for (let i = 1; i <= 3; ++i) {
-    birdSprites.push(loadImage('images/bird' + i + '.png'));
+    birdSprites.push(loadImage('./assets/images/bird' + i + '.png'));
   }
   birdSprites.push(birdSprites[1]);
 }

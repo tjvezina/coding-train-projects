@@ -2,12 +2,11 @@ let source;
 let words;
 
 function preload() {
-  source = loadStrings('source.txt');
+  source = loadStrings('./assets/source.txt');
 }
 
 function setup() {
   noCanvas();
-  select("body").style("background-color", "gray");
   
   source = join(source, ' ');
   // words = splitTokens(source, ' .,!?-');

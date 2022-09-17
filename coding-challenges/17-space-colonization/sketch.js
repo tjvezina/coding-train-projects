@@ -1,7 +1,3 @@
-// SPACE COLONIZATION (Misleading name, generates trees)
-// - Begins with a series of points (the ends of the branches)
-// - "Grows" segments that are attracted to the points, until all are reached
-
 const MIN_DIST = 16;
 const MAX_DIST = 128;
 const LEAF_COUNT = 800;
@@ -9,8 +5,12 @@ const LEAF_COUNT = 800;
 let tree;
 let interval = null;
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function setup() {
-  createCanvas(windowWidth, windowHeight - 4, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   
   tree = new Tree();
   interval = setInterval(grow, 50);
@@ -19,7 +19,7 @@ function setup() {
 function draw() {
   background(28, 36, 48);
   
-  orbitControl();
+  orbitControl(1, 1, 0);
   
   tree.draw();
 }

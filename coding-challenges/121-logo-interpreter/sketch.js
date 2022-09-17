@@ -12,7 +12,7 @@ function setup() {
   programInput = select('#programInput');
   
   speedSlider = createSlider(-5, 5, 0);
-  speedSlider.parent(select('main'));
+  select('body').elt.insertBefore(speedSlider.elt, programInput.elt);
   
   const buttonRow = createDiv();
   buttonRow.attribute('id', 'buttonRow');
@@ -33,11 +33,11 @@ function setup() {
   
   const example1Button = createButton('Example 1');
   example1Button.parent(buttonRow);
-  example1Button.mousePressed(() => loadExample('assets/example1.txt'));
+  example1Button.mousePressed(() => loadExample('./assets/example1.txt'));
   
   const example2Button = createButton('Example 2');
   example2Button.parent(buttonRow);
-  example2Button.mousePressed(() => loadExample('assets/example2.txt'));
+  example2Button.mousePressed(() => loadExample('./assets/example2.txt'));
   
   errorText = createP();
   errorText.style('color', '#A11');

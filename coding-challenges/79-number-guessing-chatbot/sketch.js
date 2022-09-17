@@ -15,7 +15,7 @@ function setup() {
   sendButton.mousePressed(sendMessage)
   
   bot = new RiveScript()
-  bot.loadFile("source/brain.rive.txt")
+  bot.loadFile("./assets/brain.rive.txt")
     .then(() => bot.sortReplies())
     .catch((error) => console.log('Chatbot failed to start!\n' + error))
 }

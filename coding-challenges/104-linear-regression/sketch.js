@@ -7,6 +7,10 @@ const optimizer = tf.train.sgd(0.5);
 
 function setup() {
   createCanvas(600, 600);
+
+  createDiv().style('height: 1rem;');
+  createP('Click to place data points.');
+  createP('The closest approximate line will be found via linear regression.');
   
   m = tf.variable(tf.scalar(0));
   b = tf.variable(tf.scalar(0.5));

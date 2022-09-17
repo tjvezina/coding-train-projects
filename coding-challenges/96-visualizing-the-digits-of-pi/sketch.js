@@ -8,6 +8,7 @@ const digitAngles = [];
 
 function setup() {
   createCanvas(720, 800);
+  colorMode(HSB);
   
   piString = loadStrings('assets/pi-1million.txt', onDataLoaded);
   
@@ -26,10 +27,8 @@ function draw() {
     return;
   }
   
-  colorMode(RGB);
-  background(34);
+  clear();
   
-  colorMode(HSB);
   translate(width/2, height-width/2);
   noFill();
   

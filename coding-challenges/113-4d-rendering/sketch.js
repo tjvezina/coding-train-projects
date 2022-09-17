@@ -3,6 +3,8 @@ const points = [];
 
 function setup() {
   createCanvas(600, 600, WEBGL);
+
+  createP('A 2D projection of a 3D projection of a 4D object');
   
   points[0] = new Vec4(-0.5, -0.5, -0.5, 0.5);
   points[1] = new Vec4(0.5, -0.5, -0.5, 0.5);

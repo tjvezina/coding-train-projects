@@ -1,7 +1,7 @@
 var dim = 400;
 
 // JavaScript object notation
-var circle = {
+var circleData = {
   x: 100,
   y: 100,
   d: 50
@@ -13,7 +13,7 @@ function setup() {
 
 function draw() {
   background(map(mouseX, 0, dim, 0, 255));
-  ellipse(circle.x, circle.y, circle.d, circle.d);
+  circle(circleData.x, circleData.y, circleData.d, circleData.d);
 }
 
 function mousePressed() {

@@ -18,7 +18,7 @@ function setup() {
   canvas.mousePressed(onMousePressed);
   canvas.mouseReleased(onMouseReleased);
   pixelDensity(1);
-  background(42);
+  background(0);
   
   pen = new Pen();
   model = ml5.sketchRNN('cat', onModelLoaded);
@@ -33,11 +33,17 @@ function onModelLoaded(error) {
 }
 
 function reset() {
-  background(42);
+  clearScreen();
   
   seedPoints.length = 0;
   pen.reset();
   model.reset();
+}
+
+function clearScreen() {
+  background(0);
+  fill(80).noStroke().text('Begin drawing a cat, and the AI will finish it', width/2, height - 25);
+  noFill().stroke(255);
 }
 
 function onCompleteSketch() {
@@ -55,6 +61,7 @@ function onGeneratePath(error, path) {
 
 function draw() {  
   if (!initialized) {
+    background(0);
     noStroke();
     fill(127);
     textAlign(CENTER, CENTER);
@@ -63,9 +70,6 @@ function draw() {
     return;
   }
   
-  noStroke();
-  fill(80);
-  text('Begin drawing a cat, and the AI will finish it', width/2, height - 25);
   
   noFill();
   
@@ -84,6 +88,8 @@ function draw() {
 }
 
 function onMousePressed() {
+  if (seedPoints.length > 0 && pen.state !== PenState.End) return;
+
   reset();
   
   isUserDrawing = true;
@@ -96,12 +102,10 @@ function onMousePressed() {
 }
 
 function mouseDragged() {
-  if (!isUserDrawing) {
-    return;
-  }
+  if (!isUserDrawing) return;
   
-  const dx = (mouseX - pmouseX) / viewScale;
-  const dy = (mouseY - pmouseY) / viewScale;
+  const dx = movedX / viewScale;
+  const dy = movedY / viewScale;
   
   const lastPoint = seedPoints.slice(-1)[0];
   seedPoints.push(createVector(lastPoint.x + dx, lastPoint.y + dy));
@@ -110,13 +114,16 @@ function mouseDragged() {
 }
 
 function onMouseReleased() {
+  if (!isUserDrawing) return;
+
   pen.move({ dx: 0, dy: 0, pen: PenState.Up });
   
   isUserDrawing = false;
   
   const simplifiedSeedPoints = rdpSimplification(seedPoints, 2);
   
-  background(42);
+  clearScreen();
+
   beginShape();
   simplifiedSeedPoints.forEach(p => vertex(p.x, p.y));
   endShape();

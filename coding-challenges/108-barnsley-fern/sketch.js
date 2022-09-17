@@ -9,7 +9,7 @@ let p = { x: 0, y: 0 };
 
 function setup() {
   createCanvas(600, 600);
-  background(42);
+  clear();
 }
 
 function draw() {

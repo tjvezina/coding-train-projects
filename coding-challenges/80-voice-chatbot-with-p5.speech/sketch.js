@@ -11,8 +11,9 @@ function setup() {
   
   speech = new p5.Speech()
   speechRec = new p5.SpeechRec('en-US', onSpeechRec)
-  speechRec.start(true, false) // Continuous = true, interim = false (listen more than once, wait until each message is complete)
-  
+  speechRec.start(true, false);
+  speechRec.onError = (error) => console.error(error);
+
   userInput = select('#user-input')
   sendButton = select('#send-button')
   chatbox = select('#chatbox')
@@ -21,9 +22,12 @@ function setup() {
   sendButton.mousePressed(sendMessage)
   
   bot = new RiveScript()
-  bot.loadFile("source/brain.rive.txt")
+  bot.loadFile("./assets/brain.rive.txt")
     .then(() => bot.sortReplies())
     .catch((error) => console.log('Chatbot failed to start!\n' + error))
+
+  createP('Speech recognition is currently not working due to an unknown error (see console).')
+    .style('color: darkred; margin-top: 1rem;');
 }
 
 function onSpeechRec() {

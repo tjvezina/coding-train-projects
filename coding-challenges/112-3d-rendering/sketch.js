@@ -3,6 +3,8 @@ const points = [];
 
 function setup() {
   createCanvas(600, 600);
+
+  createP('A 2D projection of a 3D object');
   
   points[0] = createVector(-0.5, -0.5, -0.5);
   points[1] = createVector(0.5, -0.5, -0.5);

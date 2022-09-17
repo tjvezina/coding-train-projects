@@ -17,7 +17,7 @@ let highScore = 0;
 let speed = 1;
 
 function preload() {
-  font = loadFont('fonts/flappy.TTF');
+  font = loadFont('./assets/fonts/flappy.TTF');
   
   bird = new Bird();
   level = new Level();

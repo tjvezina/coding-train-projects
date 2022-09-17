@@ -30,5 +30,7 @@ function draw() {
 }
 
 function mouseClicked() {
-  segments = segments.flatMap(x => x.divide());
+  if (mouseButton === LEFT && segments.length < 3072) {
+    segments = segments.flatMap(x => x.divide());
+  }
 }

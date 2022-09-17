@@ -208,6 +208,8 @@ Game.prototype.keyPressed = function(keyCode) {
       wall = wallsH[cell.x][cell.y];
       ++cell.y;
       break;
+    default:
+      return;
   }
   
   if (!wall.enabled) {

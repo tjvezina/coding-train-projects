@@ -12,7 +12,9 @@ function setup() {
   createCanvas(400, 400);
   pixelDensity(1);
   colorMode(HSB, 100);
-  
+
+  createElement('h3', 'Arrow Keys + Scroll Wheel');
+
   resetView();
 }
 

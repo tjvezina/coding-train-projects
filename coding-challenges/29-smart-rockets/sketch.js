@@ -2,11 +2,16 @@ let population;
 let target;
 let targetImg;
 
+const canvasScale = 1.5;
+
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(400, 400).style('display: none;');
+  setTimeout(() => select('canvas')
+    .style(`width: ${width*canvasScale}px; height: ${height*canvasScale}px; display: block;`)
+  );
   
   target = createVector(width / 2, height / 4);
-  targetImg = loadImage('apple.png');
+  targetImg = loadImage('./assets/apple.png');
   population = new Population(25);
 }
 

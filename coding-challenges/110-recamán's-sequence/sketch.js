@@ -11,7 +11,21 @@ function windowResized() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  
+
+  background(28);
+  fill(200).noStroke();
+  textSize(height/25);
+  textAlign(CENTER, CENTER);
+  text('Audio Warning!\nHigh pitched tones ahead, click when ready.', width/2, height/2);
+}
+
+function mouseClicked() {
+  if (env === undefined && millis() > 1000 && mouseButton === LEFT) {
+    start();
+  }
+}
+
+function start() {
   env = new p5.Env();
   env.setADSR(0.001, 0.2, 0.2, 0.5);
   env.setRange(0.2, 0);
@@ -23,6 +37,8 @@ function setup() {
 }
 
 function draw() {
+  if (env === undefined) return;
+
   background(28);
   translate(0, height/2);
   scale(width/maxValue, width/maxValue);

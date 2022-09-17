@@ -5,27 +5,20 @@ let rSlider; // Polygon radius
 let aSlider; // Edge ray angle
 let dSlider; // Edge ray distance from midpoint
 
-let fillHueSlider;
-let fillAlphaSlider;
-let strokeHueSlider;
-let strokeAlphaSlider;
-let polygonAlphaSlider;
+let hueSlider;
 
 function setup() {
-  createCanvas(400, 400);
-  colorMode(HSB, 100);
+  createCanvas(800, 600);
+  colorMode(HSB);
   
-  createDiv().style('height', '8px');
-  nSlider = new ArraySlider('Sides', [3, 4, 6], 2, reset);
-  rSlider = new Slider('Radius', 20, 200, 50, 1, reset);
-  aSlider = new Slider('Angle', 0, 180, 120, 1, reset);
-  dSlider = new Slider('Delta', 0, 0.99, 0.3, 0.01, reset);
-  
-  fillHueSlider = new Slider('Fill Color', 0, 100, 56);
-  fillAlphaSlider = new Slider('Fill Alpha', 0, 100, 100);
-  strokeHueSlider = new Slider('Line Color', 0, 100, 14);
-  strokeAlphaSlider = new Slider('Line Alpha', 0, 100, 0);
-  polygonAlphaSlider = new Slider('Polygon Alpha', 0, 100, 0);
+  UIElement.setLabelWidth('5rem');
+  nSlider = new ArraySlider('Sides', [3, 4, 6], undefined, 2);
+  rSlider = new Slider('Radius', 20, 50, 80, 1);
+  aSlider = new Slider('Angle', 0, 180, 120, 1);
+  dSlider = new Slider('Delta', 0, 0.99, 0.3, 0.01);
+  hueSlider = new Slider('Hue', 0, 360, 200);
+
+  UIElement.controlList.forEach(control => control.changed(reset));
   
   reset();
 }
@@ -39,31 +32,55 @@ function draw() {
     case 4: drawSquareGrid(); break;
     case 6: drawHexagonGrid(); break;
   }
+
+  noFill().stroke(33).strokeWeight(20);
+  rect(-width/2, -height/2, width, height);
 }
 
 function reset() {
-  let n = nSlider.value();
-  let r = rSlider.value();
-  let a = aSlider.value() / 180 * PI; // Deg to Rad
-  let d = dSlider.value();
+  let n = nSlider.value;
+  let r = rSlider.value;
+  let a = aSlider.value / 180 * PI; // Deg to Rad
+  let d = dSlider.value;
   
   polygon = new HankinPolygon(n, r, a, d);
 }
 
 function drawTriangleGrid() {
-  // TODO
-  polygon.draw();
+  const xSpace = 2 * polygon.radius * sin(PI/3);
+  const ySpace = polygon.radius + polygon.radius * sin(PI/6);
+  const xRange = ceil(((width + xSpace) / 2) / xSpace);
+  const yRange = ceil(((height + ySpace) / 2) / ySpace);
+  const flipOffset = 2 * (ySpace - polygon.radius);
+  for (let y = -yRange; y <= yRange; y++) {
+    for (let x = -xRange; x <= xRange; x++) {
+      const xPos = (x * xSpace) + (y % 2 !== 0 ? xSpace/2 : 0);
+      const yPos = y * ySpace;
+
+      push();
+      {
+        translate(xPos, yPos);
+        polygon.draw();
+        translate(0, flipOffset);
+        scale(1, -1);
+        polygon.draw();
+      }
+      pop();
+    }
+  }
 }
 
 function drawSquareGrid() {
   let space = sqrt((polygon.radius*polygon.radius)/2) * 2;
   let xRange = ceil((width/2 + space/2) / space);
   let yRange = ceil((height/2 + space/2) / space);
-  for (let x = -xRange; x <= xRange; ++x) {
-    for (let y = -yRange; y <= yRange; ++y) {
+  for (let y = -yRange; y <= yRange; y++) {
+    for (let x = -xRange; x <= xRange; x++) {
       push();
-      translate(x * space, y * space);
-      polygon.draw();
+      {
+        translate(x * space, y * space);
+        polygon.draw();
+      }
       pop();
     }
   }
@@ -74,14 +91,16 @@ function drawHexagonGrid() {
   let xRange = floor((width/2 + polygon.radius) / xSpace);
   let ySpace = polygon.radius * tan(PI/3);
   let yRange = ceil((height/2) / ySpace);
-  for (let x = -xRange; x <= xRange; ++x) {
-    for (let y = -yRange; y <= yRange; ++y) {
+  for (let y = -yRange; y <= yRange; y++) {
+    for (let x = -xRange; x <= xRange; x++) {
       let xPos = x * xSpace;
-      let yPos = y * ySpace + (x % 2 != 0 ? ySpace/2 : 0);
+      let yPos = y * ySpace + (x % 2 !== 0 ? ySpace/2 : 0);
       
       push();
-      translate(xPos, yPos);
-      polygon.draw();
+      {
+        translate(xPos, yPos);
+        polygon.draw();
+      }
       pop();
     }
   }
@@ -124,12 +143,11 @@ class HankinPolygon {
   }
   
   draw() {
-    strokeWeight(2);
+    const col = color(hueSlider.value, 80, 100);
+    fill(col).stroke(col).strokeWeight(1);
+
     beginShape();
     for (let i = 0; i < this.sideCount; ++i) {
-      stroke(0, 0, 0, polygonAlphaSlider.value());
-      line(this.a.x, this.a.y, this.b.x, this.b.y);
-      
       if (!this.crossed) {
         vertex(this.d1.x, this.d1.y);
         vertex(this.c1.x, this.c1.y);
@@ -149,8 +167,6 @@ class HankinPolygon {
       this.d1.rotate(this.sideAngle);
       this.d2.rotate(this.sideAngle);
     }
-    fill(fillHueSlider.value(), 100, 100, fillAlphaSlider.value());
-    stroke(strokeHueSlider.value(), 100, 100, strokeAlphaSlider.value());
     endShape(CLOSE);
   }
 }

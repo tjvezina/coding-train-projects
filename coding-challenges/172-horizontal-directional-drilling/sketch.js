@@ -52,10 +52,10 @@ function draw() {
   arc(VIEW_WIDTH/2, GROUND_Y, RIVER_WIDTH, RIVER_DEPTH*2, 0, PI);
   
   // DEBUG OVERLAY
-  noFill();
-  strokeWeight(4);
-  stroke(0, 255, 0, 63);
-  rect(2, 2, VIEW_WIDTH-4, VIEW_HEIGHT-4);
+  // noFill();
+  // strokeWeight(4);
+  // stroke(0, 255, 0, 63);
+  // rect(2, 2, VIEW_WIDTH-4, VIEW_HEIGHT-4);
   
   drill.draw();
 }

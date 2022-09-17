@@ -7,7 +7,6 @@ let stripSlider;
 let mSlider;
 let n1Slider;
 let n2Slider;
-// let n3Slider;
 
 function Vert(pos, col) {
   this.pos = pos;
@@ -23,12 +22,13 @@ function setup() {
   createCanvas(600, 500, WEBGL);
   colorMode(HSB, 100);
   
-  layerSlider = new PowerSlider('Layers', 2, 8, 5, 2, generateSphere);//setupSlider('Layers', 2, 8, 5);
-  stripSlider = new PowerSlider('Strips', 2, 8, 5, 2, generateSphere);//setupSlider('Strips', 2, 8, 5);
-  mSlider = new Slider('m', 0, 20, 7, 0.01, generateSphere);//setupSlider('m', 0, 20, 7, 0.01);
-  n1Slider = new Slider('n1', 0.1, 10, 0.2, 0.1, generateSphere);//setupSlider('n1', 0, 10, 0.2, 0.1);
-  n2Slider = new Slider('n2', 0, 10, 1.7, 0.1, generateSphere);//setupSlider('n2', 0, 10, 1.7, 0.1);
-  // n3Slider = setupSlider('n3', 0, 10, 1.7, 0.1);
+  layerSlider = new PowerSlider('Layers', 2, 8, 5);
+  stripSlider = new PowerSlider('Strips', 2, 8, 7);
+  mSlider = new Slider('M', 0, 20, 7, 0.1);
+  n1Slider = new Slider('N1', 0.1, 10, 0.2, 0.1);
+  n2Slider = new Slider('N2', 0, 2, 1.7, 0.1);
+
+  UIElement.controlList.forEach(control => control.changed(generateSphere));
   
   const FOV = PI / 3;
   const CAM_Z = (height/2) / tan(FOV/2); // Makes XY plane 1:1 with pixels
@@ -41,23 +41,14 @@ function setup() {
   generateSphere();
 }
 
-function setupSlider(name, min, max, init, step) {
-  createP(name).style('color', '#ccc')
-    .style('margin-bottom', '0px')
-  	.style('margin-top', '5px');
-  let slider = createSlider(min, max, init, step || 1).style('width', width + 'px');
-  slider.input(generateSphere);
-  return slider;
-}
-
 function draw() {
   background(25);
   
-  orbitControl();
+  orbitControl(1, 1, 0);
   
   // LIGHTS
-  ambientLight(50);
-  directionalLight(255, 255, 255, -1, 1, 0);
+  ambientLight(127);
+  // directionalLight(255, 255, 255, -1, 1, 0);
   
   // MATERIALS
   // normalMaterial();
@@ -68,8 +59,8 @@ function draw() {
 }
 
 function generateSphere() {
-  let layers = layerSlider.value();
-  let strips = stripSlider.value();
+  let layers = layerSlider.value;
+  let strips = stripSlider.value;
   
   sphereVerts = [];
   
@@ -101,10 +92,10 @@ function generateSphere() {
 }
 
 function getRadius(t) {
-  let m = mSlider.value();
-  let n1 = n1Slider.value();
-  let n2 = n2Slider.value();
-  let n3 = n2Slider.value(); // Re-use n2 for n3
+  let m = mSlider.value;
+  let n1 = n1Slider.value;
+  let n2 = n2Slider.value;
+  let n3 = n2Slider.value; // Re-use n2 for n3
   
   let a = 1;
   let b = 1;
@@ -116,7 +107,7 @@ function getRadius(t) {
 }
 
 function drawSphere() {
-  let layers = layerSlider.value();
+  let layers = layerSlider.value;
   
   noStroke();
 

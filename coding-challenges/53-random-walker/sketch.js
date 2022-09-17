@@ -4,19 +4,21 @@ let stepCount = 0
 
 function setup() {
   createCanvas(640, 480);
+  frameRate(30);
   colorMode(HSB, 100);
   background(0);
-  
+
   pos = createVector(width / 2, height / 2);
 
-  speedSlider = new PowerSlider('Speed', 0, 10, 0, 2);
+  UIElement.setLabelWidth('5rem');
+  speedSlider = new PowerSlider('Speed', 0, 10, 0);
 }
 
 function draw() {
   stroke(255);
   strokeWeight(2);
 
-  let iterations = speedSlider.value();
+  let iterations = speedSlider.value;
   for (let i = 0; i < iterations; ++i) {
     let prev = pos.copy();
     let step = p5.Vector.random2D();

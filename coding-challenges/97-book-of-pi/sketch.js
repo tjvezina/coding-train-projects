@@ -65,7 +65,6 @@ function setup() {
 }
 
 function changePage(offset) {
-  console.log(ceil(pageCount/2));
   currentPagePair = max(0, min(ceil(pageCount/2)-1, currentPagePair + offset));
 }
 

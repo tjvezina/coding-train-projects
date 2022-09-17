@@ -9,8 +9,12 @@ let offset = 0;
 let p;
 let path = [];
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function setup() {
-  createCanvas(windowWidth, windowHeight - 4, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   colorMode(HSB, 100);
   
   p = createVector(1, 1, 1);

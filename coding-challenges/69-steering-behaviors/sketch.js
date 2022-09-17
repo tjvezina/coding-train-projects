@@ -3,9 +3,22 @@ let berries = []
 
 let graph
 
+let sightConeToggle;
+let forceLineToggle;
+
 function setup() {
   createCanvas(800, 600)
   graph = createGraphics(120, 120)
+
+  select('body').elt.prepend(createElement('h2', 'Steering Behaviors').elt);
+
+  createP('Each vehicle has a genetic code that steers it towards or away from berries based on their color.');
+  createP('Green berries increase health, red ones decrease it. Health also declines with age.');
+  createP('Vehicles who fill their health bar split and evolve. The strongest DNA survives!');
+
+  createDiv().style('height: 1rem;');
+  sightConeToggle = createCheckbox('Show sight cones', false);
+  forceLineToggle = createCheckbox('Show force lines', false);
   
   for (let i = 0; i < 10; i++) {
     vehicles.push(new Vehicle(random(width), random(height)))

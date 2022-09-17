@@ -35,7 +35,7 @@ const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
 // -- INIT -- //
 
 function preload() {
-  pencilFont = loadFont('assets/Handwritten.ttf')
+  pencilFont = loadFont('./assets/Handwritten.ttf')
 }
 
 function setup() {

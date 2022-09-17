@@ -1,58 +1,41 @@
 let zoom = 1;
-let drag;
-let prevMouse;
 
 let sun;
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight - 4);
+  resizeCanvas(windowWidth, windowHeight);
 }
 
-function setup() {
-  drag = createVector(0, 0);
+function setup() {  
+  createCanvas(windowWidth, windowHeight, WEBGL);
   
-  createCanvas(windowWidth, windowHeight - 4, WEBGL);
-  
-  sun = new Body(24, 0, null, loadImage("Textures/sun.jpg"), color(255));
-  m = new Body(5, 60, sun, loadImage("Textures/mercury.jpg"));
-  v = new Body(8, 120, sun, loadImage("Textures/venus.jpg"));
-  e = new Body(9, 190, sun, loadImage("Textures/earth.jpg"));
-  new Body(2, 25, e, loadImage("Textures/moon.jpg"));
-  r = new Body(7, 260, sun, loadImage("Textures/mars.jpg"));
-  new Body(3, 22, r, loadImage("Textures/phobos.jpg"));
-  new Body(2, 30, r, loadImage("Textures/deimos.jpg"));
+  sun = new Body(24, 0, null, loadImage("./assets/sun.jpg"), color(255));
+  m = new Body(5, 60, sun, loadImage("./assets/mercury.jpg"));
+  v = new Body(8, 120, sun, loadImage("./assets/venus.jpg"));
+  e = new Body(9, 190, sun, loadImage("./assets/earth.jpg"));
+  new Body(2, 25, e, loadImage("./assets/moon.jpg"));
+  r = new Body(7, 260, sun, loadImage("./assets/mars.jpg"));
+  new Body(3, 22, r, loadImage("./assets/phobos.jpg"));
+  new Body(2, 30, r, loadImage("./assets/deimos.jpg"));
 }
 
 function draw() {
   background(0);
   
   noStroke();
-  ambientMaterial(255);
-  ambientLight(42);
+  // ambientMaterial(255);
+  // ambientLight(42);
   
-  orbitControl();
-  // translate(drag.x, drag.y);
+  orbitControl(1, 1, 0);
   rotateX(PI/2);
-  // scale(1 / zoom);
+  scale(1 / zoom);
 
   sun.update();
   sun.draw();
 }
 
-function mousePressed() {
-  prevMouse = createVector(mouseX, mouseY);
-}
-
-// function mouseDragged() {
-//   let mousePos = createVector(mouseX, mouseY);
-//   drag.add(mousePos.copy().sub(prevMouse));
-//   prevMouse = mousePos.copy();
-  
-//   return false;
-// }
-
 function mouseWheel(event) {
-  zoom += event.delta * 0.0005;
+  zoom = constrain(zoom + event.delta * 0.0005, 0.05, 1);
 }
 
 //****************************************
@@ -88,7 +71,7 @@ Body.prototype.draw = function() {
     push();
     {
       strokeWeight(0.5);
-      stroke(20);
+      stroke(42);
       noFill();
       ellipse(0, 0, this.distance * 2);
     }
@@ -97,18 +80,24 @@ Body.prototype.draw = function() {
     if (this.emission) {
       fill(this.emission);
       scale(100);
-      pointLight(this.emission, drag.x, drag.y, 0);
+      pointLight(this.emission, 0, 0, 0);
       scale(0.01);
     }
     
     rotate(-this.angle);
     translate(this.distance, 0);
-    if (this.emission) {
-      ambientLight(this.emission);
+
+    push();
+    {
+      if (this.emission) {
+        ambientLight(this.emission);
+      }
+      ambientMaterial(255);
+      texture(this.tex);
+      sphere(this.radius);
     }
-    ambientMaterial(255);
-    texture(this.tex);
-    sphere(this.radius);
+    pop();
+
     for (let body of this.children) {
       body.draw();
     }
